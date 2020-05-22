@@ -1,8 +1,8 @@
 #ifndef CHT_COMMON_KAPPAEFF_H
 #define CHT_COMMON_KAPPAEFF_H
 
-#include "turbulentFluidThermoModel.H"
-#include "turbulentTransportModel.H"
+#include "fluidThermoMomentumTransportModel.H"
+#include "kinematicMomentumTransportModel.H"
 
 namespace preciceAdapter
 {
@@ -23,7 +23,10 @@ protected:
 
     //- Turbulence (and thermo/transport) model, from which
     //  kappaEff is drawn directly.
-    const Foam::compressible::turbulenceModel & turbulence_;
+    // TODO: Update comments
+    const Foam::compressible::momentumTransportModel & turbulence_;
+
+    const Foam::thermophysicalTransportModel & thermophysicalTransportModel_;
 
 public:
 
@@ -53,7 +56,7 @@ protected:
     //- Turbulence (and thermo/transport) model.
     //  The effective thermal diffusivity is drawn from it and
     //  used to compute the effective thermal conductivity.
-    const Foam::incompressible::turbulenceModel & turbulence_;
+    const Foam::incompressible::momentumTransportModel & turbulence_;
 
     //- Name of the user-provided density (in the preciceDict)
     const std::string nameRho_;

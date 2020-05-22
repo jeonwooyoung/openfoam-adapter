@@ -14,7 +14,10 @@ preciceAdapter::CHT::KappaEff_Compressible::KappaEff_Compressible
 :
 mesh_(mesh),
 turbulence_(
-    mesh.lookupObject<compressible::turbulenceModel>(turbulenceModel::propertiesName)
+    mesh.lookupObject<compressible::momentumTransportModel>("turbulenceProperties")
+),
+thermophysicalTransportModel_(
+    mesh.lookupObject<thermophysicalTransportModel>("thermophysicalProperties")
 )
 {
     DEBUG(adapterInfo("Constructed KappaEff_Compressible."));
@@ -28,12 +31,13 @@ void preciceAdapter::CHT::KappaEff_Compressible::extract(uint patchID, bool mesh
         primitivePatchInterpolation patchInterpolator(mesh_.boundaryMesh()[patchID]);
 
         //Interpolate kappaEff_ from centers to nodes
-        kappaEff_= patchInterpolator.faceToPointInterpolate(turbulence_.kappaEff() ().boundaryField()[patchID]);
+        // kappaEff_= patchInterpolator.faceToPointInterpolate(turbulence_.kappaEff() ().boundaryField()[patchID]);
+        kappaEff_= patchInterpolator.faceToPointInterpolate(thermophysicalTransportModel_.kappaEff() ().boundaryField()[patchID]);
     }
     else
     {
         // Extract kappaEff_ from the turbulence model
-        kappaEff_ = turbulence_.kappaEff() ().boundaryField()[patchID];
+        // kappaEff_ = turbulence_.kappaEff() ().boundaryField()[patchID];
     }
 }
 
@@ -56,7 +60,7 @@ preciceAdapter::CHT::KappaEff_Incompressible::KappaEff_Incompressible
 :
 mesh_(mesh),
 turbulence_(
-    mesh.lookupObject<incompressible::turbulenceModel>(turbulenceModel::propertiesName)
+    mesh.lookupObject<incompressible::momentumTransportModel>("turbulenceProperties")
 ),
 nameRho_(nameRho),
 nameCp_(nameCp),
