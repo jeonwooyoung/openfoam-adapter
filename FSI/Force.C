@@ -50,24 +50,24 @@ solverType_(solverType)
 //Calculate viscous force
 Foam::tmp<Foam::volSymmTensorField> preciceAdapter::FSI::Force::devRhoReff() const
 {
-    //For turbulent flows 
-    typedef compressible::turbulenceModel cmpTurbModel;
-    typedef incompressible::turbulenceModel icoTurbModel;   
-    
-    if (mesh_.foundObject<cmpTurbModel>(cmpTurbModel::propertiesName))
+    //For turbulent flows
+    typedef compressible::momentumTransportModel cmpTurbModel;
+    typedef incompressible::momentumTransportModel icoTurbModel;
+
+    if (mesh_.foundObject<cmpTurbModel>(cmpTurbModel::typeName))
     {        
         const cmpTurbModel& turb =
-            mesh_.lookupObject<cmpTurbModel>(cmpTurbModel::propertiesName);    
+            mesh_.lookupObject<cmpTurbModel>(cmpTurbModel::typeName);    
         
-        return turb.devRhoReff();
+        return turb.devTau();
 
     }    
-    else if (mesh_.foundObject<icoTurbModel>(icoTurbModel::propertiesName))
-    {        
-        const incompressible::turbulenceModel& turb =
-            mesh_.lookupObject<icoTurbModel>(icoTurbModel::propertiesName);
-            
-        return rho()*turb.devReff();        
+    else if (mesh_.foundObject<icoTurbModel>(icoTurbModel::typeName))
+    {
+        const incompressible::momentumTransportModel &turb =
+            mesh_.lookupObject<icoTurbModel>(icoTurbModel::typeName);
+
+        return rho()*turb.devSigma();        
     }
     else
     {        
@@ -127,13 +127,12 @@ Foam::tmp<Foam::volScalarField> preciceAdapter::FSI::Force::mu() const
 
     if (solverType_.compare("incompressible") == 0)
     {
-        typedef immiscibleIncompressibleTwoPhaseMixture iitpMixture;
-        if (mesh_.foundObject<iitpMixture>("mixture"))
+        if (mesh_.foundObject<fluidThermo>(basicThermo::dictName))
         {
-            const iitpMixture& mixture =
-                mesh_.lookupObject<iitpMixture>("mixture");
+            const fluidThermo& thermo =
+                mesh_.lookupObject<fluidThermo>(basicThermo::dictName);
                 
-            return mixture.mu();
+            return thermo.mu();
         }
         else
         {        

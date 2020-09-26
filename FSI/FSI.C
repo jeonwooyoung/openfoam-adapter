@@ -92,16 +92,14 @@ std::string preciceAdapter::FSI::FluidStructureInteraction::determineSolverType(
     }
 
     
-    if (mesh_.foundObject<IOdictionary>(turbulenceModel::propertiesName))
+    if (mesh_.foundObject<IOdictionary>("turbulenceProperties"))
     {
         turbulencePropertiesExists = true;
-        DEBUG(adapterInfo("Found the " + turbulenceModel::propertiesName
-            + " dictionary."));
+        DEBUG(adapterInfo("Found the turbulenceProperties dictionary."));
     }
     else
     {
-        DEBUG(adapterInfo("Did not find the " + turbulenceModel::propertiesName
-            + " dictionary."));
+        DEBUG(adapterInfo("Did not find the turbulenceProperties dictionary."));
     }
     
 
