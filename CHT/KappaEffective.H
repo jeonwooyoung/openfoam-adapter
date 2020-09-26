@@ -3,6 +3,7 @@
 
 #include "fluidThermoMomentumTransportModel.H"
 #include "kinematicMomentumTransportModel.H"
+#include "thermophysicalTransportModel.H"
 
 namespace preciceAdapter
 {
