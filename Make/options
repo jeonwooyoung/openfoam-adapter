@@ -2,7 +2,6 @@ EXE_INC = \
     -I$(LIB_SRC)/finiteVolume/lnInclude \
     -I$(LIB_SRC)/meshTools/lnInclude \
     -I$(LIB_SRC)/transportModels/ \
-    -I$(LIB_SRC)/twoPhaseModels/immiscibleIncompressibleTwoPhaseMixture/lnInclude \
     -I$(LIB_SRC)/thermophysicalModels/basic/lnInclude \
     -I$(LIB_SRC)/ThermophysicalTransportModels/lnInclude \
     -I$(LIB_SRC)/MomentumTransportModels/momentumTransportModels/lnInclude \
@@ -22,7 +21,6 @@ LIB_LIBS = \
     -lthermophysicalTransportModels \
     -lfluidThermoMomentumTransportModels \
     -lincompressibleMomentumTransportModels \
-    -limmiscibleIncompressibleTwoPhaseMixture \
     $(ADAPTER_GLOBAL_LIBRARY_PATHS) \
     $(ADAPTER_GLOBAL_LD_LIBRARY_PATHS) \
     -L$(ADAPTER_PRECICE_ROOT)/build/last \
