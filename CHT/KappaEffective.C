@@ -31,13 +31,12 @@ void preciceAdapter::CHT::KappaEff_Compressible::extract(uint patchID, bool mesh
         primitivePatchInterpolation patchInterpolator(mesh_.boundaryMesh()[patchID]);
 
         //Interpolate kappaEff_ from centers to nodes
-        // kappaEff_= patchInterpolator.faceToPointInterpolate(turbulence_.kappaEff() ().boundaryField()[patchID]);
         kappaEff_= patchInterpolator.faceToPointInterpolate(thermophysicalTransportModel_.kappaEff() ().boundaryField()[patchID]);
     }
     else
     {
         // Extract kappaEff_ from the turbulence model
-        // kappaEff_ = turbulence_.kappaEff() ().boundaryField()[patchID];
+        kappaEff_ = thermophysicalTransportModel_.kappaEff()().boundaryField()[patchID];
     }
 }
 
