@@ -14,7 +14,7 @@ preciceAdapter::CHT::KappaEff_Compressible::KappaEff_Compressible
 :
 mesh_(mesh),
 thermophysicalTransportModel_(
-    mesh.lookupObject<thermophysicalTransportModel>("thermophysicalProperties")
+    mesh.lookupObject<thermophysicalTransportModel>(thermophysicalTransportModel::typeName)
 )
 {
     DEBUG(adapterInfo("Constructed KappaEff_Compressible."));
