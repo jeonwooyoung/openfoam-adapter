@@ -22,11 +22,7 @@ protected:
     //- Effective conductivity (it can be different for each cell)
     Foam::scalarField kappaEff_;
 
-    //- Turbulence (and thermo/transport) model, from which
-    //  kappaEff is drawn directly.
-    // TODO: Update comments
-    const Foam::compressible::momentumTransportModel & turbulence_;
-
+    //- Thermophysical transport model, from which kappaEff is drawn directly.
     const Foam::thermophysicalTransportModel & thermophysicalTransportModel_;
 
 public:

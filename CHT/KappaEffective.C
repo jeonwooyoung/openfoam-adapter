@@ -13,9 +13,6 @@ preciceAdapter::CHT::KappaEff_Compressible::KappaEff_Compressible
 )
 :
 mesh_(mesh),
-turbulence_(
-    mesh.lookupObject<compressible::momentumTransportModel>("turbulenceProperties")
-),
 thermophysicalTransportModel_(
     mesh.lookupObject<thermophysicalTransportModel>("thermophysicalProperties")
 )
@@ -35,7 +32,7 @@ void preciceAdapter::CHT::KappaEff_Compressible::extract(uint patchID, bool mesh
     }
     else
     {
-        // Extract kappaEff_ from the turbulence model
+        // Extract kappaEff_ from the thermophysical transport model
         kappaEff_ = thermophysicalTransportModel_.kappaEff()().boundaryField()[patchID];
     }
 }
