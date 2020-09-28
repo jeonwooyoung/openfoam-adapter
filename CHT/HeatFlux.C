@@ -160,7 +160,7 @@ preciceAdapter::CHT::HeatFlux_Incompressible::HeatFlux_Incompressible
         )
     :
       HeatFlux(mesh, nameT),
-      Kappa_(new KappaEff_Incompressible(mesh, nameRho, nameCp, namePr, nameAlphat))
+      Kappa_(new KappaEff_Incompressible(mesh))
 {
 }
 

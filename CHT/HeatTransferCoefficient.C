@@ -176,7 +176,7 @@ HeatTransferCoefficient_Incompressible
         )
     :
       HeatTransferCoefficient(mesh, nameT),
-      Kappa_(new KappaEff_Incompressible(mesh, nameRho, nameCp, namePr, nameAlphat))
+      Kappa_(new KappaEff_Incompressible(mesh))
 {
 }
 
